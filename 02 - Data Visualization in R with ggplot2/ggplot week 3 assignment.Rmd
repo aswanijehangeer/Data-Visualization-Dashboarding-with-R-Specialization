@@ -1,0 +1,120 @@
+---
+title: "Week 3 Peer Review"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+
+######DO NOT MODIFY. This will load required packages and data.
+
+knitr::opts_chunk$set(echo = TRUE, results = 'hide')
+library(tidyverse)
+library(ggthemes)
+
+cel <- drop_na(read_csv("Elections CELL DATA.csv"))
+view(cel)
+
+cces <- drop_na(read_csv("Cces data.csv"))
+view(cces)
+
+
+```
+
+Following the directions on the Coursera assignment page, you will make four original visualizations. Note that the data for the CCES and CEL data are imported in code in the R Markdown file.
+
+### Jehangeer
+
+## Exercise 1
+
+Here, I'm making density plot for congress 112, showing which party have high legislative effective score.
+(Higher means more effective)
+
+
+
+```{r exercise1,echo=FALSE, results='hide', fig.keep='last'}
+
+cel %>%
+      filter(congress == 112) %>% 
+      ggplot(aes(x = les))+
+      geom_density()
+
+
+Party <- recode(cel$dem, '1' = "Democratic", '0' = "Republican")
+cel <- add_column(cel, Party)
+
+cel %>%
+      filter(congress == 112) %>% 
+      ggplot(aes(x = les,fill = Party))+
+      geom_density()+
+      labs(x = "Count", y = "Legislative Effective Score", 
+           title = "LES Score of Congress Parties")+
+      facet_wrap(~Party)
+    
+
+```
+
+## Exercise 2
+
+Here, I have created a bar plot of the members of congress 112.
+(American or African)
+
+
+```{r exercise2,echo=FALSE, results='hide', fig.keep='last'}
+
+cel %>%
+      filter(congress == 112) %>%
+      select(congress, afam) %>%
+      ggplot(aes(x = afam))+
+      geom_bar()
+      
+      
+People <- recode(cel$afam, '0' = "American", '1'= "African")
+cel <- add_column(cel, People)
+
+ggplot(cel, aes(x = People, fill = People))+
+      geom_bar()+
+      scale_fill_manual(values = c("black", "red"))+
+      labs(x = "Identities", y = "Numbers of People's", title = "Member's in Congress")
+
+```
+
+## Exercise 3
+
+Scatter plot of four student's grades with annotations
+
+
+```{r exercise3,echo=FALSE, results='hide', fig.keep='last'}
+
+Students <-  c("Jehangeer", "Palwisha", "Putk", "Pem")
+Grades <- c(45, 69, 38, 82)
+Classes <- c(15,20,11,25)
+
+data <- tibble(Students, Grades, Classes)
+
+data %>% 
+      ggplot(aes(x = Classes, y = Grades, color = Students))+
+      geom_point()+
+      geom_text(aes(label = Students), nudge_y = -5)+
+      labs(title = "Student's Grades")+
+      guides(color = FALSE)
+
+
+```
+
+## Exercise 4
+
+Here, I have created a ggthemes template data plot of data mtcars comparison btw horsepower and miles per gallon.
+
+
+```{r exercise4,echo=FALSE, results='hide', fig.keep='last'}
+
+mtcars
+
+ggplot(mtcars, aes(x = mpg, y = hp))+
+      geom_line()+
+      theme_few()+
+      labs(title = " Mtcars Horsepower vs Mpg(ggthemes)", x = "Miles per gallon", y = "Horsepower")
+   
+
+
+```

@@ -1,0 +1,132 @@
+---
+title: "Week 02 Peer Review"
+output: html_document
+---
+
+
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+cces <- drop_na(read_csv("Cces data.csv"))
+
+
+```
+
+Your objective is to replicate these figures, created using the Cooperative Congressional Election Study data. These figures are similar to those we completed in the lecture videos.
+
+#### Jehangeer
+
+## Exercise 1
+
+Hints:
+
+* For the x-axis, use the variable "ideo5".
+
+* Make sure you recode the data for the "ideo5" variable to generate the correct names for the x-axis. You will want to consult the codebook.
+
+* Use the fill aesthetic to have R fill in the bars. You do not need to set the colors manually.
+
+* Use guides() to drop the legend.
+
+* Make sure the axis labels and figure title are correct.
+
+
+```{r exercise1,echo=FALSE, results='hide', fig.keep='last'}
+
+ggplot(cces, aes(x = ideo5))+
+      geom_bar()
+
+# recoding ideo5 variable into categorical variable
+
+Ideology <- recode(cces$ideo5, '1'= "Very Liberal", '2'= "Liberal", '3'= "Moderate", '4'= "Conservative", '5'= "Very Conservative")
+cces <- add_column(cces, Ideology)
+
+ggplot(cces, aes(x = Ideology, fill = Ideology))+
+      geom_bar()+
+      labs(x = "Ideology", y = "Count", title = "Respondent Ideology")+
+      guides(fill =  FALSE)
+
+```
+
+## Exercise 2
+
+Hints:
+
+* For the x-axis, use the variable "pew_religimp".
+
+* Make sure you recode the data for the "pew_religimp" variable to generate the correct labels for the x-axis. You will want to consult the codebook.
+
+* Rename the column for Ideology to make sure the first letter is upper-case (to make the legend appear correctly).
+
+* Use the fill aesthetic to have R fill in the bars. You do not need to set the colors manually.
+
+* Make sure the axis labels and figure title are correct.
+
+```{r exercise2,echo=FALSE, results='hide', fig.keep='last'}
+
+ggplot(cces, aes(x = pew_religimp))+
+      geom_bar()
+      
+party2 <- recode(cces$pew_religimp, '1'= "very important", '2'= "somewhat important", '3'= "Not to important", '4'= "Not at all important")
+
+cces <- add_column(cces, party2)
+
+ggplot(cces, aes(x = party2, fill = Ideology))+
+      geom_bar()+
+      labs(x = "Importance of Religion", y = "Count", title = "Importance of Religion by Ideology")
+
+
+```
+
+## Exercise 3
+
+Instructions:
+
+* For this visualization, you are creating your own data for practice.
+
+* Create a tibble/data frame with three columns: Semester, Student, and Grade.
+
+* There should be six semesters and three students (Amanda, Betty, and Carol)
+
+* Create grades for the students using the runif() command, with values between 80 and 100. Hint: you'll need 18 grades total.
+
+The figure should look approximately like this (your values will be slightly different):
+
+
+```{r exercise3,echo=FALSE, results='hide', fig.keep='last'}
+
+Semester <- seq(1:6)
+Students <- rep("Amanda", 6)
+Grades <- runif(6, 80, 100)
+
+data1 <- tibble(Semester,Students, Grades)
+
+ggplot(data1, aes(x = Semester, y = Grades))+
+      geom_line()
+
+Semester <- seq(1:6)
+Students <- rep("Betty", 6)
+Grades <- runif(6, 80, 100)
+
+data2 <- tibble(Semester,Students, Grades)
+
+
+Semester <- seq(1:6)
+Students <- rep("Carol", 6)
+Grades <- runif(6, 80, 100)
+
+data3 <- tibble(Semester,Students, Grades)
+
+
+all_data <- bind_rows(data1, data2, data3)
+view(all_data)
+
+ggplot(all_data, aes(x = Semester, y = Grades, group = Students, color = Students))+
+      geom_line()+
+      labs(title = "Student Grades by Semester")+
+      facet_wrap(~Students)+
+      guides(color = FALSE)
+
+```
