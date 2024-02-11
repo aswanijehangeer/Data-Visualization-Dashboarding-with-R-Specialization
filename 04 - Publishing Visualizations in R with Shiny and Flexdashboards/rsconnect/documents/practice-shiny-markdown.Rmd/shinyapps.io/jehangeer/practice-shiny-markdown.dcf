@@ -1,0 +1,12 @@
+name: practice-shiny-markdown
+title: practice-shiny-markdown
+username:
+account: jehangeer
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 3734549
+bundleId: 4300274
+url: https://jehangeer.shinyapps.io/practice-shiny-markdown/
+when: 1614864816.97212
+asMultiple: FALSE
+asStatic: FALSE

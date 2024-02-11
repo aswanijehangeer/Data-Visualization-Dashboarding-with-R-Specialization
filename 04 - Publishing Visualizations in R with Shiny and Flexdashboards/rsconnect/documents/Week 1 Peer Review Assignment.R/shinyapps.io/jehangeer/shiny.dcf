@@ -1,0 +1,13 @@
+name: shiny
+title: shiny
+username:
+account: jehangeer
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 3747566
+bundleId: 4309748
+url: https://jehangeer.shinyapps.io/shiny/
+when: 1615058757.81878
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: .RData|Cel Election Data.csv|congress_example.R|inputs-and-outputs, week 02.R|inputs-outputs,my code, week 2.R|practice-shiny-markdown.Rmd|publish_practice.csv|publishing_lecture_code.R|simple r shiny template.R|Jahangir/app.R|OldFaithfulReplicaiton/app.R

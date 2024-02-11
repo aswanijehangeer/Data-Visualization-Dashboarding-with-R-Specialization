@@ -1,0 +1,73 @@
+---
+title: "Pages"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+    theme: yeti
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(tidyverse)
+data(mtcars)
+```
+
+Page 1 {data-orientation=columns}
+===================================== 
+
+Column
+-------    
+### Chart 1
+    
+```{r}
+ggplot(mtcars,aes(x=wt,y=mpg))+geom_point()
+```
+
+
+Column
+-------       
+### Chart 2
+
+```{r}
+ggplot(mtcars,aes(x=wt,y=mpg))+geom_point()
+```
+   
+Page 2 {data-orientation=rows}
+=================
+
+
+Column{data-height=700}
+-------
+### Chart 3
+    
+```{r}
+ggplot(mtcars,aes(x=wt,y=mpg))+geom_point()
+```
+
+Column{data-height=300}
+-------
+### Chart 4
+
+```{r}
+ggplot(mtcars,aes(x=wt,y=mpg))+geom_point()
+```
+
+
+
+Page 3
+=================
+
+Column{.tabset}
+-------
+### Chart 3
+    
+```{r}
+ggplot(mtcars,aes(x=wt,y=mpg))+geom_point()
+```
+
+### Chart 4
+
+```{r}
+ggplot(mtcars,aes(x=wt,y=cyl))+geom_point()
+```

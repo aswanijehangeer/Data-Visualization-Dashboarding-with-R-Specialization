@@ -1,0 +1,42 @@
+---
+title: "First FlexDasboard"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+    
+runtime: shiny   
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(tidyverse)
+library(shiny)
+library(plotly)
+
+head(mtcars)
+```
+
+Column {.sidebar}
+-----------------------------------------------------------------------
+
+### User Input
+
+```{r}
+radioButtons(inputId = "my_cyl", label = "Cylinder", choices = c("2", "4", "6"))
+```
+
+Column }
+-----------------------------------------------------------------------
+
+### Chart 
+
+```{r}
+renderPlotly(
+      ggplotly(ggplot(filter(mtcars, cyl == input$my_cyl), aes(x = mpg, y = wt))+
+                     geom_point())
+)
+
+```
+
+
